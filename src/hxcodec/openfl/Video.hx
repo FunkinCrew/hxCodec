@@ -248,10 +248,14 @@ class Video extends Bitmap
 		else
 		{
 			// Rebuild plugins.dat.
+			#if !ios
 			params.push("--reset-plugins-cache");
+			#end
 		}
 		#else
+		#if !ios
 		params.push("--reset-plugins-cache");
+		#end
 		#end
 
 		// Build argv array.
