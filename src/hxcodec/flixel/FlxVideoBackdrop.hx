@@ -4,10 +4,11 @@ package hxcodec.flixel;
 #if (!flixel_addons && macro)
 #error 'Your project must use flixel-addons in order to use this class.'
 #end
-	
+
 import flixel.FlxG;
 import flixel.util.FlxAxes;
 import flixel.addons.display.FlxBackdrop;
+import openfl.utils.Assets;
 
 import sys.FileSystem;
 import hxcodec.openfl.Video;
@@ -53,10 +54,12 @@ class FlxVideoBackdrop extends FlxBackdrop
 
 		if (bitmap != null)
 		{
-			if (FileSystem.exists(Sys.getCwd() + location))
+			if (Assets.exists(location))
+				return bitmap.play(Assets.getPath(location), shouldLoop);
+			else if (FileSystem.exists(Sys.getCwd() + location))
 				return bitmap.play(Sys.getCwd() + location, shouldLoop);
-
-			return bitmap.play(location, shouldLoop);
+			else
+				return bitmap.play(location, shouldLoop);
 		}
 
 		return -1;

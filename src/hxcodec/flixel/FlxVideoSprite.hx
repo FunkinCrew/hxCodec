@@ -4,6 +4,7 @@ package hxcodec.flixel;
 import flixel.FlxG;
 import flixel.FlxSprite;
 import flixel.util.FlxColor;
+import openfl.utils.Assets;
 
 import sys.FileSystem;
 import hxcodec.openfl.Video;
@@ -50,7 +51,9 @@ class FlxVideoSprite extends FlxSprite
 
 		if (bitmap != null)
 		{
-			if (FileSystem.exists(Sys.getCwd() + location))
+			if (Assets.exists(location))
+				return bitmap.play(Assets.getPath(location), shouldLoop);
+			else if (FileSystem.exists(Sys.getCwd() + location))
 				return bitmap.play(Sys.getCwd() + location, shouldLoop);
 			else
 				return bitmap.play(location, shouldLoop);
