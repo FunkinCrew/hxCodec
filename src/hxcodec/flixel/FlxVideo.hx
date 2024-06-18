@@ -5,6 +5,7 @@ import flixel.FlxG;
 import hxcodec.openfl.Video;
 import openfl.events.Event;
 import sys.FileSystem;
+import openfl.utils.Assets;
 
 class FlxVideo extends Video
 {
@@ -39,7 +40,9 @@ class FlxVideo extends Video
 
 		FlxG.stage.addEventListener(Event.ENTER_FRAME, onEnterFrame);
 
-		if (FileSystem.exists(Sys.getCwd() + location))
+		if (Assets.exists(location))
+			return super.play(Assets.getPath(location), shouldLoop);
+		else if (FileSystem.exists(Sys.getCwd() + location))
 			return super.play(Sys.getCwd() + location, shouldLoop);
 		else
 			return super.play(location, shouldLoop);
